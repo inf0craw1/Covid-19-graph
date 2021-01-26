@@ -1,4 +1,5 @@
 import { ChartBoard } from './chart/ChartBoard';
+import { getAuthUrl } from './Auth.js';
 import './App.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -7,10 +8,11 @@ function App() {
   const [newData, setNewData] = useState(null);
   const date = new Date();
   const endCreateDt = date.getFullYear().toString() + (date.getMonth()+1 < 10 ? "0" + (date.getMonth()+1).toString() : (date.getMonth()+1).toString()) + ((date.getDate() < 10) ? "0" + date.getDate().toString() : date.getDate().toString());
+  const authUrl = getAuthUrl();
   useEffect(() => {
      async function get(){
         axios
-        .get(`/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=X%2Bd0hoRSjvUivUzV6FB6%2Ba%2ByWIKaSpvIbvkEH0RznfUCshFENP%2BAc6S8WHL5S5yDV75OUOTnCxbHh8Gk4PUWpg%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200101&endCreateDt=${endCreateDt}`)
+        .get(authUrl + endCreateDt)
         .then(response => {
            const items = response.data.response.body.items.item;
            let newData = [];
@@ -27,7 +29,7 @@ function App() {
         })
      }
      get();
-  }, [])
+  }, [authUrl, endCreateDt])
   
   return (
      <div className="App">
