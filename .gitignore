@@ -11,6 +11,7 @@
 # production
 /build
 
+# authFiles
 src/Auth.js
 
 # misc
