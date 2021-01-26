@@ -12,7 +12,7 @@
 /build
 
 # authFiles
-src/Auth.js
+/src/Auth.js
 
 # misc
 .DS_Store
