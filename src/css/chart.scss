@@ -1,0 +1,216 @@
+@mixin keyframe ($animation_name) {
+    @-webkit-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @-o-keyframes #{$animation_name} {
+        @content;
+    }
+
+    @keyframes #{$animation_name} {
+        @content;
+    }
+}
+
+@mixin animation ($delay, $duration, $animation, $direction: forward, $fillmode: fowards) {
+    -webkit-animation-delay: $delay;
+    -webkit-animation-duration: $duration;
+    -webkit-animation-name: $animation;
+    -webkit-animation-fill-mode: $fillmode;
+    -webkit-animation-direction: $direction;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-delay: $delay;
+    -moz-animation-duration: $duration;
+    -moz-animation-name: $animation;
+    -moz-animation-fill-mode: $fillmode;
+    -moz-animation-direction: $direction;
+    -moz-animation-iteration-count: infinite;
+
+    animation-delay: $delay;
+    animation-duration: $duration;
+    animation-name: $animation;
+    animation-fill-mode: $fillmode;
+    animation-direction: $direction;
+    animation-iteration-count: infinite;
+}
+@include keyframe(loading-bar){
+    0%{
+        height: 0%;
+    }
+    50%{
+        height: 100%;
+    }
+    100%{
+        height: 0%;
+    }
+}
+.chart-bar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h1{
+        text-align: center;
+    }
+}
+.chart-board{
+    position:relative;
+    border: 1px solid white;
+    margin-top: 10px;
+    padding-top: 5%;
+    overflow-x: scroll;
+    &::-webkit-scrollbar { display: none; }
+    
+    .chart-axis-y{
+        position: absolute;
+        bottom: 10%;
+        height: 80%;
+        width: 100%;
+        .axis-y-wrapper{
+            overflow: hidden;
+            .axis-y{
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                border-top: 1px solid black;
+                &.active{
+                    border-top: 1px solid #c4e8f2;
+                    transition: ease all .2s;
+                }
+            }
+        }
+        
+    }
+    .chart-bar-wrapper{
+        position: absolute;
+        bottom:10%;
+        height: 80%;
+        display: flex;
+        align-items: flex-end;
+        &.unactive .bar{
+            height: 0% !important;
+            transition: ease all .2s
+        }
+        .bar{
+            flex: 0 0 auto;
+            display: inline-block;
+            position: relative;
+            background: #06bcee;
+            width: 10px;
+            font-size: 10px;
+            text-align: center;
+            color: white;
+            margin: 0 15px;
+            p{
+                width: 30px;
+                left: -10px;
+                position: absolute;
+            }
+            p.top{
+                top: -15px;
+            }
+            .tooltip{
+                position: absolute;
+                top: -35px;
+                left: -15px;
+                width: 40px;
+                font-size: 15px;
+                vertical-align: middle;
+                background: black;
+                color: #06bcee;
+                border-radius: 5px;
+                opacity: 0;
+                z-index: 9;
+                pointer-events: none;
+                transition: ease all .2s;
+                .triangle{
+                    font-size: 10px;
+                    line-height: 22px;
+                    vertical-align: top;
+                    margin-right: 1px;
+                }
+            }
+            .tooltip.minus{
+                color: red;
+            }
+        }
+        .bar:hover{
+            background: #057492;
+            transition: ease all .2s;
+            p.top{
+                font-size: 12px;
+                color: #06bcee;
+                transition: ease all .2s;
+            }
+            .tooltip{
+                opacity: 1;
+                transition: ease all .2s;
+            }
+        }
+        .bar:first-child{
+            margin-left: 20px;
+        }
+        .bar:last-child{
+            margin-right: 20px;
+        }
+        
+        
+    }
+    .chart-axis-x{
+        position: absolute;
+        bottom: 0;
+        height: 10%;
+        display: flex;
+        color: white;
+        font-size: 10px;
+        .axis-x{
+            width: 40px;
+            text-align: center;
+            flex: 0 0 auto;
+            border-top: 1px solid black;
+        }
+        .axis-x:first-child{
+            padding-left: 5px;
+        }
+    }
+    .chart-loader{
+        position: absolute;
+        top: 120px;
+        left: 200px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        .loading-bar{
+            width: 20%;
+            border: 1px solid white;
+            background: #06bcee;
+        }
+        .loading-bar-1{
+            @include animation(0s, .75s, loading-bar, ease);
+        }
+        .loading-bar-2{
+            @include animation(.15s, .75s, loading-bar, ease);
+        }
+        .loading-bar-3{
+            @include animation(.3s, .75s, loading-bar, ease);
+        }
+        .loading-bar-4{
+            @include animation(.45s, .75s, loading-bar, ease);
+        }
+        .loading-bar-5{
+            @include animation(.6s, .75s, loading-bar, ease);
+        }
+    }
+    .loading-text{
+        position: absolute;
+        top: 220px;
+        left: 208px;
+    }
+}
