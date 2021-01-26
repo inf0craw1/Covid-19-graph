@@ -24,7 +24,7 @@ function App() {
             newData.reverse();
             setNewData(newData);
          }) 
-         .catch((e) => {
+         .catch(e => {
             console.error(e);
          })
       }
